@@ -1,3 +1,5 @@
+import 'package:counter_7/form.dart';
+import 'package:counter_7/budget.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -24,13 +26,13 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  const MyHomePage({super.key});
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -41,7 +43,7 @@ class MyHomePage extends StatefulWidget {
   // used by the build method of the State. Fields in a Widget subclass are
   // always marked "final".
 
-  final String title;
+  final String title = 'Counter 7';
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -117,60 +119,97 @@ class _MyHomePageState extends State<MyHomePage> {
           // the App.build method, and use it to set our appbar title.
           title: Text(widget.title),
         ),
-        body: Center(
-          // Center is a layout widget. It takes a single child and positions it
-          // in the middle of the parent.
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                oddOrEven,
-                style: TextStyle(color: display),
-              ),
-              Text(
-                '$_counter',
-                style: Theme.of(context).textTheme.headline4,
-              ),
-            ],
-          ),
+        drawer: Drawer(
+        child: Column(
+          children: [
+            // Menambahkan clickable menu
+            ListTile(
+              title: const Text('counter_7'),
+              onTap: () {
+                // Route menu ke halaman utama
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const MyHomePage()),
+                );
+              },
+            ),
+            ListTile(
+              title: const Text('Tambah Budget'),
+              onTap: () {
+                // Route menu ke halaman form
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const MyFormPage()),
+                );
+              },
+            ),
+            ListTile(
+              title: const Text('Data Budget'),
+              onTap: () {
+                // Route menu ke halaman form
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const MyBudgetPage()),
+                );
+              },
+            ),
+          ],
         ),
-        floatingActionButton:
-          Padding(
-            padding: EdgeInsets.fromLTRB(35, 0, 3, 10),
-            child: Row(crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              if (_counter != 0)... [
-                Visibility( 
-                  visible: true,
-                  child: FloatingActionButton(
-                    onPressed: _decrementCounter,
-                    tooltip: 'Decrement',
-                    child: const Icon(Icons.remove)
-                  )
-                ),
-                Expanded(child: Container()),
-                FloatingActionButton(
-                  onPressed: _incrementCounter,
-                  tooltip: 'Increment',
-                  child: const Icon(Icons.add),
+      ),
+      body: Center(
+        // Center is a layout widget. It takes a single child and positions it
+        // in the middle of the parent.
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              oddOrEven,
+              style: TextStyle(color: display),
+            ),
+            Text(
+              '$_counter',
+              style: Theme.of(context).textTheme.headline4,
+            ),
+          ],
+        ),
+      ),
+      floatingActionButton:
+        Padding(
+          padding: EdgeInsets.fromLTRB(35, 0, 3, 10),
+          child: Row(crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            if (_counter != 0)... [
+              Visibility( 
+                visible: true,
+                child: FloatingActionButton(
+                  onPressed: _decrementCounter,
+                  tooltip: 'Decrement',
+                  child: const Icon(Icons.remove)
                 )
-              ] else... [
-                Visibility(
-                  visible: false,
-                  child: FloatingActionButton(
-                    onPressed: _decrementCounter,
-                    tooltip: 'Decrement',
-                    child: const Icon(Icons.remove)
-                  )
-                ),
-                FloatingActionButton(
-                  onPressed: _incrementCounter,
-                  tooltip: 'Increment',
-                  child: const Icon(Icons.add)
+              ),
+              Expanded(child: Container()),
+              FloatingActionButton(
+                onPressed: _incrementCounter,
+                tooltip: 'Increment',
+                child: const Icon(Icons.add),
+              )
+            ] else... [
+              Visibility(
+                visible: false,
+                child: FloatingActionButton(
+                  onPressed: _decrementCounter,
+                  tooltip: 'Decrement',
+                  child: const Icon(Icons.remove)
                 )
-              ] // This trailing comma makes auto-formatting nicer for build methods.
-            ]
-          )
-        ));
+              ),
+              FloatingActionButton(
+                onPressed: _incrementCounter,
+                tooltip: 'Increment',
+                child: const Icon(Icons.add)
+              )
+            ] // This trailing comma makes auto-formatting nicer for build methods.
+          ]
+        )
+      ));
   }
 }
