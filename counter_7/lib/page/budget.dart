@@ -1,5 +1,6 @@
-import 'package:counter_7/form.dart';
+import 'package:counter_7/page/form.dart';
 import 'package:counter_7/main.dart';
+import 'package:counter_7/page/mywatchlist.dart';
 import 'package:flutter/material.dart';
 
 class MyBudgetPage extends StatefulWidget {
@@ -14,12 +15,9 @@ class Database {
   String? nominal;
   String? jenis;
 
-  Database(String judul, String nominal, String jenis) {
-    this.judul = judul;
-    this.nominal = nominal;
-    this.jenis = jenis;
-  }
+  Database(String this.judul, String this.nominal, String this.jenis);
 }
+
 class _MyBudgetPageState extends State<MyBudgetPage> {
 
   @override
@@ -31,40 +29,39 @@ class _MyBudgetPageState extends State<MyBudgetPage> {
       drawer: Drawer(
         child: Column(
           children: [
-            // Menambahkan clickable menu
             ListTile(
               title: const Text('counter_7'),
               onTap: () {
-                // Route menu ke halaman utama
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => const MyHomePage()),
-                );
-              },
-            ),
+                );},),
+
             ListTile(
               title: const Text('Tambah Budget'),
               onTap: () {
-                // Route menu ke halaman form
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => const MyFormPage()),
-                );
-              },
-            ),
+                );},),
+
             ListTile(
               title: const Text('Data Budget'),
               onTap: () {
-                // Route menu ke halaman form
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => const MyBudgetPage()),
-                );
-              },
-            ),
-          ],
-        ),
-      ),
+                );},),
+
+            ListTile(
+              title: const Text('My Watchlist'),
+              onTap: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const MyWatchListPage()),
+                );},),
+          ],),),
+          
       body: Form(child: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.all(20.0),
@@ -72,31 +69,29 @@ class _MyBudgetPageState extends State<MyBudgetPage> {
             children: [
               for (var data in database)
               Padding(padding: const EdgeInsets.all(4.0),
-              child: Container(
-                child: ListTile(
-                  shape: RoundedRectangleBorder(
-                    side: BorderSide(width: 0.1),
-                    borderRadius: BorderRadius.circular(6)
-                  ),
-
-                  title: Padding(padding: const EdgeInsets.all(5.0),
-                    child: Text(
-                    data.judul.toString(),
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  ),
-
-                  subtitle: Padding(padding: const EdgeInsets.all(5.0),
-                    child: Text(data.nominal.toString()),
-                  ),
-                  trailing: Padding(padding: const EdgeInsets.all(5.0),
-                  child: 
-                    Text(
-                    data.jenis.toString(),
-                    style: TextStyle(fontSize: 15),
-                  ),
-                  )
+              child: ListTile(
+                shape: RoundedRectangleBorder(
+                  side: const BorderSide(width: 0.1),
+                  borderRadius: BorderRadius.circular(6)
                 ),
+
+                title: Padding(padding: const EdgeInsets.all(5.0),
+                  child: Text(
+                  data.judul.toString(),
+                  style: const TextStyle(fontSize: 20),
+                ),
+                ),
+
+                subtitle: Padding(padding: const EdgeInsets.all(5.0),
+                  child: Text(data.nominal.toString()),
+                ),
+                trailing: Padding(padding: const EdgeInsets.all(5.0),
+                child: 
+                  Text(
+                  data.jenis.toString(),
+                  style: const TextStyle(fontSize: 15),
+                ),
+                )
               ),
               )
             ],

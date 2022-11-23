@@ -1,7 +1,7 @@
-import 'package:counter_7/budget.dart';
+import 'package:counter_7/page/budget.dart';
 import 'package:counter_7/main.dart';
+import 'package:counter_7/page/mywatchlist.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 List<Database> database = [];
 
@@ -28,45 +28,44 @@ class _MyFormPageState extends State<MyFormPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Form Budget'),
+        title: const Text('Form Budget'),
       ),
       drawer: Drawer(
         child: Column(
           children: [
-            // Menambahkan clickable menu
             ListTile(
               title: const Text('counter_7'),
               onTap: () {
-                // Route menu ke halaman utama
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => const MyHomePage()),
-                );
-              },
-            ),
+                );},),
+
             ListTile(
               title: const Text('Tambah Budget'),
               onTap: () {
-                // Route menu ke halaman form
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => const MyFormPage()),
-                );
-              },
-            ),
+                );},),
+
             ListTile(
               title: const Text('Data Budget'),
               onTap: () {
-                // Route menu ke halaman form
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => const MyBudgetPage()),
-                );
-              },
-            ),
-          ],
-        ),
-      ),
+                );},),
+
+            ListTile(
+              title: const Text('My Watchlist'),
+              onTap: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const MyWatchListPage()),
+                );},),
+          ],),),
+
       body: Form(
           key: _formKey,
           child: SingleChildScrollView(
@@ -155,7 +154,7 @@ class _MyFormPageState extends State<MyFormPage> {
             ),
           )),
       bottomNavigationBar: Padding(
-        padding: EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8.0),
         child: SizedBox(
           height: 50,
           width: 10,
@@ -181,26 +180,23 @@ class _MyFormPageState extends State<MyFormPage> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         elevation: 15,
-                        child: Container(
-                          child: ListView(
-                            padding: const EdgeInsets.only(top: 20, bottom: 20),
-                            shrinkWrap: true,
-                            children: <Widget>[
-                              Center(
-                                  child: const Text(
-                                      'Jenis Kegiatan Belum Dipilih' + '\n',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20))),
-                              // TODO: Munculkan informasi yang didapat dari form
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                child: Text('Kembali'),
-                              ),
-                            ],
-                          ),
+                        child: ListView(
+                          padding: const EdgeInsets.only(top: 20, bottom: 20),
+                          shrinkWrap: true,
+                          children: <Widget>[
+                            const Center(
+                                child: Text(
+                                    'Jenis Kegiatan Belum Dipilih' + '\n',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20))),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: const Text('Kembali'),
+                            ),
+                          ],
                         ),
                       );
                     },
